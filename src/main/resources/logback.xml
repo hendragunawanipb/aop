@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+    <property name="APP_LOG_DIR" value="log" />
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${APP_LOG_DIR}/server.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${APP_LOG_DIR}/server.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>5</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%-5level %date{ISO8601} - [%t] class_name=%logger{36} [%line] - %msg%n%xEx</Pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.example.springbootaspect" level="DEBUG" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
+    <logger name="org.springframework.web" level="DEBUG" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
+    <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG" additivity="false"> 
+     <appender-ref ref="FILE" />
+	</logger>
+	   <logger name="com.zaxxer.hikari" level="DEBUG" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
+    <logger name="org.hibernate" level="ERROR" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
+    <root level="INFO">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
